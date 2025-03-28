@@ -1,11 +1,16 @@
+
+
 from django.contrib import admin
+from .models import Automobil, Reserva
 
-from .models import Automobil
-
-
+@admin.register(Automobil)
 class AutomobilAdmin(admin.ModelAdmin):
-    list_display = ('marca', 'model', 'matricula')  # Mostrar estos campos en la lista
-    search_fields = ('marca', 'model', 'matricula')  # Agregar búsqueda
+    list_display = ('marca', 'model', 'matricula')
+
+@admin.register(Reserva)
+class ReservaAdmin(admin.ModelAdmin):
+    list_display = ('automovil', 'usuario', 'fecha_inicio', 'fecha_fin')
+    list_filter = ('fecha_inicio', 'fecha_fin', 'automovil')
+    search_fields = ('automovil__marca', 'automovil__model', 'usuario__username')
 
 
-admin.site.register(Automobil, AutomobilAdmin)
